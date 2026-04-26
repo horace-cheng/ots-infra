@@ -1,0 +1,21 @@
+{
+  "rule": [
+    {
+      "action": {
+        "type": "SetStorageClass",
+        "storageClass": "COLDLINE"
+      },
+      "condition": {
+        "age": 90,
+        "comment": "交付檔案：90 天後移至 Coldline（客戶下載期限內保留）"
+      }
+    },
+    {
+      "action": { "type": "Delete" },
+      "condition": {
+        "age": 180,
+        "comment": "交付檔案：180 天後刪除"
+      }
+    }
+  ]
+}

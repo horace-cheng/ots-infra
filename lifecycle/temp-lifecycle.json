@@ -1,0 +1,11 @@
+{
+  "rule": [
+    {
+      "action": { "type": "Delete" },
+      "condition": {
+        "age": 7,
+        "comment": "Pipeline 中間產物：7 天後自動清除"
+      }
+    }
+  ]
+}

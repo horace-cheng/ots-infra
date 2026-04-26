@@ -1,0 +1,11 @@
+{
+  "rule": [
+    {
+      "action": { "type": "Delete" },
+      "condition": {
+        "age": 30,
+        "comment": "客戶上傳原文：進入 pipeline 後 30 天自動刪除"
+      }
+    }
+  ]
+}
