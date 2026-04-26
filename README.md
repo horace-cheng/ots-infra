@@ -90,4 +90,3 @@ chmod +x bootstrap.sh init-db.sh
 - DB app user 密碼自動產生並存入 `~/.ots-db-root-pw-{env}`，請妥善保管
 - Cloud SQL 設定 `--no-assign-ip`，不開放 Public IP
 - Production 環境執行前會出現確認提示
-# ots-infra
