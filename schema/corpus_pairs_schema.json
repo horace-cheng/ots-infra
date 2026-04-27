@@ -3,7 +3,6 @@
   { "name": "source_lang",     "type": "STRING",    "mode": "REQUIRED", "description": "原文語言代碼" },
   { "name": "target_lang",     "type": "STRING",    "mode": "REQUIRED", "description": "目標語言代碼" },
   { "name": "source_text",     "type": "STRING",    "mode": "REQUIRED", "description": "原文文本" },
-  { "name": "bridge_text",     "type": "STRING",    "mode": "NULLABLE", "description": "橋接語言文本（台語→華文中間產物）" },
   { "name": "translated_text", "type": "STRING",    "mode": "REQUIRED", "description": "最終譯文" },
   { "name": "qa_score",        "type": "FLOAT64",   "mode": "NULLABLE", "description": "LLM-as-Judge 可讀性分數（0–100）" },
   { "name": "track_type",      "type": "STRING",    "mode": "REQUIRED", "description": "fast / literary" },

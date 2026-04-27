@@ -60,7 +60,7 @@ CREATE TYPE invoice_type AS ENUM (
 CREATE TYPE invoice_status AS ENUM ('pending', 'issued', 'void');
 
 CREATE TYPE job_type AS ENUM (
-    'preprocess', 'nmt_stage1', 'nmt_stage2',
+    'preprocess', 'nmt',
     'qa_auto', 'qa_human', 'format_deliver'
 );
 
