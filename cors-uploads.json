@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["http://localhost:3000", "https://ots-translation.web.app", "https://ots-translation.firebaseapp.com"],
+    "method": ["PUT", "GET", "OPTIONS"],
+    "responseHeader": ["Content-Type", "Access-Control-Allow-Origin"],
+    "maxAgeSeconds": 3600
+  }
+]
