@@ -85,10 +85,12 @@ CREATE TYPE assignment_status AS ENUM (
 CREATE TABLE users (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     uid_firebase    VARCHAR(128) UNIQUE NOT NULL,
+    email           VARCHAR(255),
     client_type     VARCHAR(10)  NOT NULL CHECK (client_type IN ('b2c','b2b')),
     company_name    VARCHAR(200),
     tax_id          VARCHAR(20),
     invoice_carrier VARCHAR(50),
+    disabled        BOOLEAN NOT NULL DEFAULT FALSE,
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -102,6 +104,7 @@ CREATE TABLE orders (
     target_lang     lang_code    NOT NULL,
     word_count      INT          NOT NULL CHECK (word_count > 0),
     price_ntd       INT          NOT NULL CHECK (price_ntd > 0),
+    title           VARCHAR(100),
     gcs_upload_path TEXT,
     gcs_output_path TEXT,
     term_dict_id    VARCHAR(128),
