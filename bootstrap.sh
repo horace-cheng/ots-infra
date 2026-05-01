@@ -137,8 +137,7 @@ create_sa "$SA_PIPELINE_NAME" \
 for role in \
   "roles/cloudsql.client" \
   "roles/secretmanager.secretAccessor" \
-  "roles/storage.objectViewer" \
-  "roles/storage.objectCreator"; do
+  "roles/storage.objectAdmin"; do
   gcloud projects add-iam-policy-binding "$PROJECT_ID" \
     --member="serviceAccount:${SA_EMAIL}" \
     --role="$role" \
