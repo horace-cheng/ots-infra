@@ -9,7 +9,7 @@ BEGIN;
 -- ── 清除既有資料表與 ENUM（CASCADE 處理所有依賴，IF EXISTS 避免首次報錯）
 -- 先 DROP TABLE（有外鍵依賴需依序）
 DROP TABLE IF EXISTS corpus_log          CASCADE;
-DROP TABLE IF EXISTS literary_assignments CASCADE;
+DROP TABLE IF EXISTS assignments         CASCADE;
 DROP TABLE IF EXISTS qa_flags            CASCADE;
 DROP TABLE IF EXISTS pipeline_jobs       CASCADE;
 DROP TABLE IF EXISTS payments            CASCADE;
@@ -61,7 +61,8 @@ CREATE TYPE invoice_status AS ENUM ('pending', 'issued', 'void');
 
 CREATE TYPE job_type AS ENUM (
     'preprocess', 'nmt',
-    'qa_auto', 'qa_human', 'format_deliver'
+    'qa_auto', 'qa_human', 'format_deliver',
+    'lt_preprocess_nmt', 'lt_qa_checklist', 'lt_deliver'
 );
 
 CREATE TYPE job_status AS ENUM (
@@ -167,16 +168,28 @@ CREATE TABLE editors (
     created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE literary_assignments (
+CREATE TABLE assignments (
     id                      UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     order_id                UUID              NOT NULL UNIQUE REFERENCES orders(id),
-    editor_id               UUID              REFERENCES editors(id),
-    proofreader_id          UUID              REFERENCES editors(id),
+    editor_id               UUID              REFERENCES users(id),
+    qa_id                   UUID              REFERENCES users(id),
+    proofreader_id          UUID              REFERENCES users(id),
     status                  assignment_status NOT NULL DEFAULT 'pending',
     assigned_at             TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     editor_submitted_at     TIMESTAMPTZ,
-    proofread_submitted_at  TIMESTAMPTZ
+    proofread_submitted_at  TIMESTAMPTZ,
+    editor_assigned_at      TIMESTAMPTZ,
+    editor_completed_at     TIMESTAMPTZ,
+    proofreader_assigned_at TIMESTAMPTZ,
+    proofreader_completed_at TIMESTAMPTZ,
+    editor_notes            TEXT,
+    proofreader_notes       TEXT,
+    qa_submitted_at         TIMESTAMPTZ
 );
+
+CREATE INDEX idx_assignments_editor   ON assignments(editor_id);
+CREATE INDEX idx_assignments_qa       ON assignments(qa_id);
+CREATE INDEX idx_assignments_status   ON assignments(status);
 
 CREATE TABLE corpus_log (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
