@@ -78,7 +78,8 @@ CREATE TYPE flag_type AS ENUM (
 
 CREATE TYPE assignment_status AS ENUM (
     'pending', 'editing', 'editor_done',
-    'proofreading', 'proofread_done', 'delivered'
+    'proofreading', 'proofread_done', 'delivered',
+    'revision_needed'
 );
 
 -- ── 資料表 ────────────────────────────────────────────────────────────────
