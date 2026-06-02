@@ -12,8 +12,9 @@ ots-infra/
 │   └── schema.sql            # 完整 DDL（ENUM → 資料表 → Index → Trigger）
 ├── lifecycle/
 │   ├── uploads-lifecycle.json   # 上傳檔案：30 天刪除
-│   ├── outputs-lifecycle.json   # 輸出檔案：90 天轉 Coldline，180 天刪除
-│   └── temp-lifecycle.json      # Pipeline 暫存：7 天刪除
+│   └── outputs-lifecycle.json   # 輸出檔案：90 天轉 Coldline，180 天刪除
+│   # Temp bucket lifecycle (dev: 7d→Nearline, 30d→Coldline, 60d→Archive, 180d→Delete)
+│   # is now managed by deploy_pipeline.sh (dev only). See ots-pipeline/deploy_pipeline.sh.
 └── schema/
     └── corpus_pairs_schema.json # BigQuery corpus_pairs table schema
 ```
