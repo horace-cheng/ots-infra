@@ -1,0 +1,12 @@
+[
+  {
+    "origin": [
+      "https://ots-frontend-dev-930137370581.asia-east1.run.app",
+      "http://localhost:3000",
+      "http://localhost:5173"
+    ],
+    "method": ["GET", "HEAD"],
+    "responseHeader": ["Content-Type", "Content-Length", "Range"],
+    "maxAgeSeconds": 3600
+  }
+]
