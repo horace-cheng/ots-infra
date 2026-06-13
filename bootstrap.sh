@@ -53,6 +53,7 @@ BQ_DATASET="ots_corpus_${ENV}"
 # Secret Manager
 SECRET_DB_PASSWORD="ots-db-password-${ENV}"
 SECRET_DB_URL="ots-db-url-${ENV}"
+SECRET_NVIDIA_API="ots-nvidia-api-token-${ENV}"
 
 # Service Account
 SA_NAME="ots-api-backend-${ENV}"
@@ -73,7 +74,7 @@ echo "  Region     : $REGION"
 echo "  SQL        : $SQL_INSTANCE / db=$SQL_DATABASE / user=$SQL_APP_USER"
 echo "  Buckets    : $BUCKET_UPLOADS, $BUCKET_OUTPUTS, $BUCKET_TEMP"
 echo "  BigQuery   : $BQ_DATASET"
-echo "  Secrets    : $SECRET_DB_PASSWORD, $SECRET_DB_URL"
+echo   "  Secrets    : $SECRET_DB_PASSWORD, $SECRET_DB_URL, $SECRET_NVIDIA_API"
 echo "  SA API     : $SA_EMAIL"
 echo "  SA Pipeline: $SA_PIPELINE_EMAIL"
 echo ""
@@ -310,9 +311,11 @@ create_or_update_secret() {
 
 create_or_update_secret "$SECRET_DB_PASSWORD" "$DB_APP_PASSWORD"
 create_or_update_secret "$SECRET_DB_URL"      "$DB_URL"
+# NVIDIA API token — 由管理員手動提供，此處以 placeholder 建立
+create_or_update_secret "$SECRET_NVIDIA_API" "placeholder-update-in-console"
 
 # 授予 SA 讀取 secret 的權限
-for secret in "$SECRET_DB_PASSWORD" "$SECRET_DB_URL"; do
+for secret in "$SECRET_DB_PASSWORD" "$SECRET_DB_URL" "$SECRET_NVIDIA_API"; do
   for sa_email in "$SA_EMAIL" "$SA_PIPELINE_EMAIL"; do
     gcloud secrets add-iam-policy-binding "$secret" \
       --member="serviceAccount:${sa_email}" \
@@ -428,7 +431,7 @@ echo "  Cloud SQL    : $SQL_INSTANCE (postgres15, no-public-ip)"
 echo "  Buckets      : $BUCKET_UPLOADS / $BUCKET_OUTPUTS / $BUCKET_TEMP"
 echo "  Firestore    : Native mode, $REGION"
 echo "  BigQuery     : $BQ_DATASET.corpus_pairs (partitioned by month)"
-echo "  Secrets      : $SECRET_DB_PASSWORD / $SECRET_DB_URL"
+  echo "  Secrets      : $SECRET_DB_PASSWORD / $SECRET_DB_URL / $SECRET_NVIDIA_API"
 echo "  SA API       : $SA_EMAIL"
 echo "  SA Pipeline  : $SA_PIPELINE_EMAIL"
 echo ""
